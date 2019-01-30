@@ -31,6 +31,9 @@
         }, function (res) {
             if (res.code === 0) {
                 layer.msg('添加成功');
+                //添加成功以后再次请求一下数据，可以达到添加即显示的效果
+                that.search();
+
             } else {
                 //很多时候，正在的错误信息不回给用户去看
                 console.log(res);
@@ -81,6 +84,7 @@
             //attr 获取属性，如果是自定义属性，并且用data-开头，我们可以更简单实用data
             // $(this).attr('data-num')=$(this).data('num')
             var num=parseInt($(this).data('num'));
+            console.log(num);
             //判断这次点击的页码是不是当前页，如果是当前页,或者小于1，或者大于最大页数就不做渲染
             if(that.pageNum==num||num<1||num>that.totalPage){
                 return;
@@ -100,14 +104,14 @@
     Banner.prototype.renderPage = function () {
         //给上一页和下一页按钮添加disabled属性，来自bootstrap的css类名
         var prevClassName=this.pageNum===1?'disabled':'';
-        var nextClassName=this.pageNum===this.totalPage?'disables':'';
+        var nextClassName=this.pageNum===this.totalPage?'disabled':'';
         //清空
         this.dom.pagination.html('');
         //添加上一页
         this.dom.pagination.append(
             //当前页－1就是上一页
             `
-            <li class=${prevClassName} data-num='${this.pageNum-1}'>
+            <li class="${prevClassName}" data-num='${this.pageNum-1}'>
                 <a href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
@@ -127,7 +131,7 @@
         //添加一个下一页
         this.dom.pagination.append(
             `
-            <li class=${nextClassName} data-num='${this.pageNum+1}'>
+            <li class="${nextClassName}" data-num='${this.pageNum+1}'>
                 <a href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
