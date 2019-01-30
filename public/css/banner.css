@@ -1,0 +1,14 @@
+.mz_body th,.mz_body tr{
+    height: 50px;
+    border:1px solid black;
+    line-height: 50px;
+    text-align: center;
+}
+.mz_body th img{
+    height: 50px;
+    display: block;
+    margin:0 auto;
+}
+.mz_body table{
+    width: 100%;
+}

@@ -1,0 +1,42 @@
+/**
+公用样式
+*/
+html,body{
+    height: 100%;
+}
+.mz_side{
+    /* 不被兄弟元素压迫 */
+    flex-shrink: 0;
+    width: 256px;
+    height: 100%;
+    background-color:#737373
+}
+.mz_side ul a{
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+    font-size: 14px;
+    color: black;
+}
+body{
+    display: flex;
+}
+.mz_main{
+    /* 让他占据弹性盒子剩下的空间 */
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color:#f2f2f2;
+}
+.mz_header{
+    height: 50px;
+    background-color:#cac5c5;
+}
+.mz_body{
+    flex: 1;
+    overflow-y: auto;
+}
