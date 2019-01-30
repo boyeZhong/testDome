@@ -134,5 +134,35 @@ router.get('/search',(req,res)=>{
     //     }
     // })
 });
+
+//删除 - http://localhost:3000/banner/delete
+router.post('/delete',(req,res)=>{
+    //得到要删除的字段
+    let id=req.body.id;
+    //操作BannerModel 删除方法
+    BannerModel.deleteOne({
+        _id:id
+    }).then((data)=>{
+        console.log(data);
+        if(data.deletedCount>0){
+            res.json({
+                code:0,
+                msg:'ok'
+            })
+        }else{
+            return Promise.reject(new Error('未找到相关数据'))
+            //res.json({
+               // code:-1,
+               // msg:'未找到数据'
+           // })
+        }
+        
+    }).catch(error=>{
+        res.json({
+            code:-1,
+            msg:error.massage
+        })
+    })
+})
 //将router暴露出去
 module.exports=router;

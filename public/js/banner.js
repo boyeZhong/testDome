@@ -97,6 +97,19 @@
 
 
         })
+
+        //删除按钮的点击事件
+        this.dom.table.on('click','.delete',function(){
+            //1、得到id
+            var id=$(this).data('id');
+            //2、添加2次确认框 可以使用layer.cofirm（‘你确认吗’）
+            layer.confirm('确认删除吗？',function(){
+                console.log('确认');
+            },function(){
+                console.log('取消');
+            })
+
+        })
     }
     /**
      * 渲染分页
@@ -156,8 +169,8 @@
                                     <img class="banner-img" src='${item.imgUrl}'
                                 </td>
                                 <td>
-                                <a href='javascript:;'>删除</a>
-                                <a href='javascript:;'>修改</a>
+                                <a class='delete' data-id='${item._id}' href='javascript:;'>删除</a>
+                                <a class='update' data-id='${item._id}' href='javascript:;'>修改</a>
                                 </td>
                             </tr>
                             `
