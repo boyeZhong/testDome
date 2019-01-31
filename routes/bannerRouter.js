@@ -28,9 +28,10 @@ router.post('/add',upload.single('bannerImg'),(req,res)=>{
         //删除源文件
         fs.unlinkSync(req.file.path);
         //文件名+banner图的名字给写入数据库
-        new BannerModel({
+        
+        let banner=new BannerModel({
             name:req.body.bannerName,
-            imgUrl:'http://localhost:3000/uploads/banners'+newFileName
+            imgUrl:'http://localhost:3000/uploads/banners/'+newFileName
         });
         banner.save().then(()=>{
             res.json({
