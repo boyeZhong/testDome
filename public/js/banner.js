@@ -46,6 +46,24 @@
             that.dom.urlInput.val('');
         });
     }
+    //删除方法
+    Banner.prototype.delete=function(id){
+        var that=this;
+        //发送请求
+        $.post('/banner/delete',{
+            id:id
+        },function(res){
+            if(res.code===0){
+                
+                //添加成功以后再次请求一下数据，可以达到添加即显示的效果
+                that.search();
+            }else{
+               //很多时候，正在的错误信息不回给用户去看
+               console.log(res);
+               layer.msg('网络异常，请稍后再试'); 
+            }
+        });
+    }
     //查询方法
     Banner.prototype.search = function () {
         var that = this;
@@ -104,7 +122,9 @@
             var id=$(this).data('id');
             //2、添加2次确认框 可以使用layer.cofirm（‘你确认吗’）
             layer.confirm('确认删除吗？',function(){
-                console.log('确认');
+                
+                that.delete(id);
+                layer.msg('删除成功');
             },function(){
                 console.log('取消');
             })
