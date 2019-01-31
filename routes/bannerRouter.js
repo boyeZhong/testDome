@@ -6,7 +6,7 @@ const path=require('path');
 const fs = require('fs');
 const multer=require('multer');
 const upload=multer({
-    dest:'D:/codeDomd/tmp'
+    dest:'D:/codeDome/tmp'
 })
 const async=require('async');
 //创建一个路由

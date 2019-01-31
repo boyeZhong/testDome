@@ -35,15 +35,26 @@
             url:'/banner/add',
             method:'POST',
             processData:false,//特别注意
+            contentType:false,//特别注意
             data:formData,
             success:function(){
                 layer.msg('添加成功');
                 //
                 that.search();
+                //调用模态框的隐藏显示方法model（来自bootstarp）
+                 that.dom.addModal.modal('hide');
+                //手动清空输入框的内容
+                that.dom.nameInput.val('');
+                that.dom.urlInput.val('');
             },
             error:function(error){
                 console.log(error.message);
                 layer.msg('网络异常请稍后');
+                //调用模态框的隐藏显示方法model（来自bootstarp）
+                that.dom.addModal.modal('hide');
+                //手动清空输入框的内容
+                that.dom.nameInput.val('');
+                that.dom.urlInput.val('');
             }
         })
         /**
