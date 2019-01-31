@@ -23,8 +23,31 @@
     }
     //新增的方法
     Banner.prototype.add = function () {
-        //发送ajax请求
-        var that = this;
+        //发送ajax请求 带文件
+      
+        var that=this;
+        //1.实例化一个FormDta对象
+        var formData=new FormData();
+        //2.给formData 对象 加属性
+        formData.append('bannerName',this.dom.nameInput.val());//对应routes里面的bannerName
+        formData.append('bannerImg',this.dom.urlInput[0].files[0])//对应routes里面的bnnerImg
+        $.ajax({
+            url:'/banner/add',
+            method:'POST',
+            processData:false,//特别注意
+            data:formData,
+            success:function(){
+                layer.msg('添加成功');
+                //
+                that.search();
+            },
+            error:function(error){
+                console.log(error.message);
+                layer.msg('网络异常请稍后');
+            }
+        })
+        /**
+         * var that = this;
         $.post('/banner/add', {
             bannerName: this.dom.nameInput.val(), //获取页面添加框的val值传到后台
             bannerUrl: this.dom.urlInput.val() //获取页面添加框的val值传到后台
@@ -45,6 +68,7 @@
             that.dom.nameInput.val('');
             that.dom.urlInput.val('');
         });
+         */
     }
     //删除方法
     Banner.prototype.delete=function(id){

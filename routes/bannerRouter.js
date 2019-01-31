@@ -2,13 +2,56 @@
 const express =require('express');
 //引入之前的创建好的模型
 const BannerModel=require('../models/bannerModels');
+const path=require('path');
+const fs = require('fs');
+const multer=require('multer');
+const upload=multer({
+    dest:'D:/codeDomd/tmp'
+})
 const async=require('async');
 //创建一个路由
 const router=express.Router();
 
 //首页http://localhost:3000/banner/add
-router.post('/add',(req,res)=>{
-    //获取前端传递过来的参数
+router.post('/add',upload.single('bannerImg'),(req,res)=>{
+     //1.操作文件，将上传的文件移动到public文件夹的uploads里面的banners文件夹里面
+     //指定文件名为 时间戳+"_"+原文件文件名
+     let newFileName=new Date().getTime()+"_"+req.file.originalname;   //req.file.originalname是中间函数提供的file属性的属性值
+     //指定文件保存新路径
+     let newFilePath=path.resolve(__dirname,'../public/uploads/banners',newFileName);
+     //2.文件移动操作
+     try{
+         //读上传的文件，并保存在data变量
+        let data=fs.readFileSync(req.file.path);
+        //将读到的data文件写入新的路径中
+        fs.writeFileSync(newFilePath,data);
+        //删除源文件
+        fs.unlinkSync(req.file.path);
+        //文件名+banner图的名字给写入数据库
+        new BannerModel({
+            name:req.body.bannerName,
+            imgUrl:'http://localhost:3000/uploads/banners'+newFileName
+        });
+        banner.save().then(()=>{
+            res.json({
+                code:0,
+                msg:'ok'
+            })
+        }).catch(error=>{
+            res.json({
+                code:-1,
+                msg:error.message
+            })
+        })
+
+     }catch(error){
+        res.json({
+            code:-1,
+            msg:error.message
+        })
+     }
+    /**
+     * //获取前端传递过来的参数
     let banner=new BannerModel({
         name:req.body.bannerName,
         imgUrl:req.body.bannerUrl
@@ -31,6 +74,8 @@ router.post('/add',(req,res)=>{
             })
         }
     })
+     */
+    
 });
 
 //搜索or查询banner-http://localhost:3000/banner/search
