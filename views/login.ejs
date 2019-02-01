@@ -10,25 +10,22 @@
     <link rel="stylesheet" href="/lib/bootstrap-3.3.7-dist/css/bootstrap.css">
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/css/common.css">
-    <title>卖座电影</title>
+    <title>卖座登录</title>
 </head>
 <body>
-    <!-- 引入公共侧边栏 -->
-    <%- include('./common/side.ejs');%>
-    <!-- 右边著内容块 -->
-    <div class="mz_main">
-        <!-- 引入公共头部 -->
-    <%- include('./common/hender.ejs');%>   
-        <!-- 内容 -->
-        <div class ="mz_body">
-            内容
-        </div>
-    </div>
-        <!-- cdnjs.com查找jq网络路径引入 -->
-        <script src="/lib/jquery-1.11.3.js"></script>
-        <!-- 引入bootstrap网络路径 -->
-        <script src="/lib/bootstrap-3.3.7-dist/js/bootstrap.js" ></script>
-        <!-- 引入layuijs文件 -->
-        <script src="/lib/layui/layui.all.js"></script>
+   <div class="login">
+       <h1>登录</h1>
+       <input type="text"   placeholder="用户名" /><br/>
+       <input type="password" placeholder="密码" /><br/>
+       <button id="btn">登录</button>
+   </div>
+    <!-- cdnjs.com查找jq本地路径引入 -->
+  <script src="/lib/jquery-1.11.3.js"></script>
+  <!-- 引入bootstrap本地路径 -->
+  <script src="/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+  <!-- 引入layuijs文件 -->
+  <script src="/lib/layui/layui.all.js"></script>
+  <!-- 引入本地js -->
+  <script src="/js/login.js"></script>
 </body>
 </html>

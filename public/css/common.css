@@ -34,9 +34,22 @@ body{
 }
 .mz_header{
     height: 50px;
-    background-color:#cac5c5;
+    background-color: #393D49
 }
 .mz_body{
     flex: 1;
     overflow-y: auto;
+}
+
+
+
+/*====================对layui样式的覆盖=====================*/
+.layui-nav{
+    height:50px;
+    line-height: 50px;
+   
+}
+.layui-nav a{
+    height: 50px;
+    color: black;
 }

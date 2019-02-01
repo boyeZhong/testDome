@@ -12,6 +12,9 @@ router.get('/',(req,res)=>{
 router.get('/banner.html',(req,res)=>{
     res.render('banner');
 })
-
+//登录页面
+router.get('/login.html',(req,res)=>{
+    res.render('login');
+})
 //将router暴露出去
 module.exports=router;
