@@ -40,12 +40,15 @@
             success:function(){
                 layer.msg('添加成功');
                 //
-                that.search();
+               window.setTimeout(function(){
+                    that.search();
                 //调用模态框的隐藏显示方法model（来自bootstarp）
                  that.dom.addModal.modal('hide');
                 //手动清空输入框的内容
                 that.dom.nameInput.val('');
                 that.dom.urlInput.val('');
+                },1000)
+                
             },
             error:function(error){
                 console.log(error.message);
@@ -82,15 +85,15 @@
          */
     }
     //删除方法
-    Banner.prototype.delete=function(id){
+    Banner.prototype.delete=function(id,bannerUrl){
         var that=this;
         //发送请求
         $.post('/banner/delete',{
-            id:id
+            id:id,
+            bannerUrl:bannerUrl
         },function(res){
             if(res.code===0){
-                
-                //添加成功以后再次请求一下数据，可以达到添加即显示的效果
+                //删除成功以后再次请求一下数据，可以达到添加即显示的效果
                 that.search();
             }else{
                //很多时候，正在的错误信息不回给用户去看
@@ -153,12 +156,13 @@
 
         //删除按钮的点击事件
         this.dom.table.on('click','.delete',function(){
-            //1、得到id
+            //1、得到id 此处的data和bannerUrl都是在渲染table的时候添加到删除标签里面的自定义属性
             var id=$(this).data('id');
+            var bannerUrl=$(this).attr('bannerUrl');
             //2、添加2次确认框 可以使用layer.cofirm（‘你确认吗’）
             layer.confirm('确认删除吗？',function(){
                 
-                that.delete(id);
+                that.delete(id,bannerUrl);
                 layer.msg('删除成功');
             },function(){
                 console.log('取消');
@@ -224,7 +228,7 @@
                                     <img class="banner-img" src='${item.imgUrl}'
                                 </td>
                                 <td>
-                                <a class='delete' data-id='${item._id}' href='javascript:;'>删除</a>
+                                <a class='delete' data-id='${item._id}' bannerUrl='${item.urlName}' href='javascript:;'>删除</a>
                                 <a class='update' data-id='${item._id}' href='javascript:;'>修改</a>
                                 </td>
                             </tr>

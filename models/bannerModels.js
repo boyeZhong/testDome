@@ -23,7 +23,8 @@ const db=require('../config/db.js');
 const schema=new db.Schema({
     //定义db数据库中集合的字段信息
     name:String,//写数据类型
-    imgUrl:String
+    imgUrl:String,
+    urlName:String
 });
 //基于上面定义的schema，暴露modle，第一个参数是数据库中集合的单数形式
 module.exports=db.model('banner',schema);

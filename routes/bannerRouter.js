@@ -30,8 +30,9 @@ router.post('/add',upload.single('bannerImg'),(req,res)=>{
         //文件名+banner图的名字给写入数据库
         
         let banner=new BannerModel({
-            name:req.body.bannerName,
-            imgUrl:'http://localhost:3000/uploads/banners/'+newFileName
+            name:req.body.bannerName,//将名字添加到数据库
+            imgUrl:'http://localhost:3000/uploads/banners/'+newFileName,//将地址添加到数据库
+            urlName:newFileName//将文件名添加到数据库
         });
         banner.save().then(()=>{
             res.json({
@@ -185,11 +186,13 @@ router.get('/search',(req,res)=>{
 router.post('/delete',(req,res)=>{
     //得到要删除的字段
     let id=req.body.id;
+    let bannerUrl=req.body.bannerUrl;
+    let url=path.resolve(__dirname,'../public/uploads/banners',bannerUrl);
+    fs.unlinkSync(url);
     //操作BannerModel 删除方法
     BannerModel.deleteOne({
         _id:id
     }).then((data)=>{
-        console.log(data);
         if(data.deletedCount>0){
             res.json({
                 code:0,
